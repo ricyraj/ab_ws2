@@ -9,19 +9,21 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout source code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install CMake
-      uses: lukka/get-cmake@v4
+    - name: Setup CMake (community action)
+      uses: jwlawson/actions-setup-cmake@v1
+      with:
+        cmake-version: '3.27.0'
 
-    - name: Configure for 32-bit (Win32)
+    - name: Configure for 32-bit
       run: cmake -B build -A Win32
 
-    - name: Build DLL in Release mode
+    - name: Build DLL (Release)
       run: cmake --build build --config Release
 
-    - name: Upload WsRtd.dll (artifact)
+    - name: Upload artifact (DLL)
       uses: actions/upload-artifact@v4
       with:
         name: WsRtd-32
