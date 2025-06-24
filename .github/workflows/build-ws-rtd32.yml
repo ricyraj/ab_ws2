@@ -1,0 +1,29 @@
+name: Build 32-bit WsRtd.dll
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install CMake
+      uses: lukka/get-cmake@v3
+
+    - name: Configure for 32bit build (Win32)
+      run: |
+        cmake -B build -A Win32
+
+    - name: Build DLL in Release mode
+      run: |
+        cmake --build build --config Release
+
+    - name: Upload WsRtd.dll
+      uses: actions/upload-artifact@v4
+      with:
+        name: WsRtd-32
+        path: build/Release/WsRtd.dll
