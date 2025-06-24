@@ -27,4 +27,4 @@ typedef struct {
     unsigned int datetime;
 } RTQuote;
 
-#endif // AFLPLUGIN_H
+#endif
