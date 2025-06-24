@@ -9,21 +9,20 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout source code
+      uses: actions/checkout@v3
 
     - name: Install CMake
-      uses: lukka/get-cmake@v3
+      uses: lukka/get-cmake@v4
 
-    - name: Configure for 32bit build (Win32)
-      run: |
-        cmake -B build -A Win32
+    - name: Configure for 32-bit (Win32)
+      run: cmake -B build -A Win32
 
     - name: Build DLL in Release mode
-      run: |
-        cmake --build build --config Release
+      run: cmake --build build --config Release
 
-    - name: Upload WsRtd.dll
+    - name: Upload WsRtd.dll (artifact)
       uses: actions/upload-artifact@v4
       with:
         name: WsRtd-32
-        path: build/Release/WsRtd.dll        
+        path: build/Release/WsRtd.dll
